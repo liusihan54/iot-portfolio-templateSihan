@@ -103,7 +103,10 @@ Deshalb sollte der LED-Streifen ein geeignetes externes 5-V-Netzteil verwenden. 
 
 ## 8. Project Abstract
 
-## Additional Notes
+### Wokwi Screenshots
+
+### Datasheet Notes
+
 #### 1. VL53L0X – Abstandssensor
 
 Der VL53L0X misst Entfernungen mit Infrarotlicht. Er verwendet die Time-of-Flight-Methode (ToF).
@@ -149,7 +152,3 @@ Der MPR121 erkennt Berührungen durch Änderungen der elektrischen Kapazität. E
 Die Messung hängt von der Größe und Form der Elektroden sowie von den Einstellungen ab. Elektrische Störungen und Veränderungen in der Umgebung können die Berührungserkennung beeinflussen.
 
 **Quelle:** [MPR121 Datenblatt – NXP](https://www.nxp.com/docs/en/data-sheet/MPR121.pdf)
-
-### Wokwi Screenshots
-
-### Datasheet Notes
