@@ -7,6 +7,26 @@
 ## 3. Sensor Datasheet
 
 ## 4. Accuracy vs. Precision
+**Accuracy und Precision beschreiben zwei verschiedene Eigenschaften einer Messung.**
+
+- **Accuracy (Richtigkeit):** Wie nah ist der Messwert am tatsächlichen Wert?
+- **Precision (Präzision):** Wie ähnlich sind die Ergebnisse bei mehreren Messungen?
+
+**Beispiel 1: Hohe Präzision, aber geringe Richtigkeit**
+
+Die tatsächliche Wassertemperatur beträgt 25 °C.
+
+Ein Thermometer zeigt bei drei Messungen immer 28 °C an.
+
+Die Ergebnisse sind sehr ähnlich, also ist die Präzision hoch. Aber die Messwerte sind falsch, weil die tatsächliche Temperatur 25 °C beträgt.
+
+**Beispiel 2: Hohe Richtigkeit im Durchschnitt, aber geringe Präzision**
+
+Die tatsächliche Wassertemperatur beträgt wieder 25 °C.
+
+Ein anderes Thermometer zeigt bei drei Messungen 23 °C, 25 °C und 27 °C an.
+
+Der Durchschnitt beträgt 25 °C und ist damit richtig. Die einzelnen Messwerte sind aber unterschiedlich. Deshalb ist die Präzision gering.
 
 ## 5. I²C Addressing
 
