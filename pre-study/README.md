@@ -31,6 +31,21 @@ Der Durchschnitt beträgt 25 °C und ist damit richtig. Die einzelnen Messwerte 
 ## 5. I²C Addressing
 
 ## 6. Actuator Choice
+**Ich würde für einen kleinen Türverschluss einen Servomotor wählen.**
+
+Ein Servomotor kann sich gezielt auf einen bestimmten Winkel bewegen. Dadurch kann er den Türverschluss öffnen und schließen.
+
+**Die Vorteile sind:**
+
+- **Drehmoment:** Ein passender Servomotor hat genug Kraft, um einen kleinen Türverschluss zu bewegen.
+- **Steuerung:** Die Steuerung ist einfach, weil man den gewünschten Winkel vorgeben kann.
+- **Stromverbrauch:** Der Motor muss nur alle paar Minuten arbeiten. Wenn der Verschluss mechanisch in seiner Position bleibt, kann der Servo zwischen den Bewegungen abgeschaltet werden.
+
+**Ich würde keinen normalen Gleichstrommotor ohne zusätzliche Steuerung verwenden.**
+
+Ein normaler Gleichstrommotor dreht sich kontinuierlich und kann nicht automatisch an einer bestimmten Position stoppen. Dafür braucht man zusätzliche Sensoren oder eine andere Steuerung.
+
+Deshalb ist ein Servomotor für diese Aufgabe einfacher und praktischer.
 
 ## 7. LED Power Calculation
 
