@@ -1,6 +1,24 @@
 # Module 0 – Pre-Study
 
 ## 1. Sensor–Actuator Chain
+**Beispiel: Bluetooth-Kopfhörer mit aktiver Geräuschunterdrückung (ANC)**
+
+Ich benutze Bluetooth-Kopfhörer mit aktiver Geräuschunterdrückung.
+
+**Signalkette:**
+
+Schallwellen → Mikrofon → Signalaufbereitung → ADC → DSP/MCU → Lautsprecher
+
+**Erklärung der einzelnen Schritte:**
+
+1. **Schallwellen:** Geräusche aus der Umgebung treffen auf das Mikrofon.
+2. **Mikrofon (Sensor):** Das Mikrofon wandelt die Schallwellen in ein elektrisches Signal um.
+3. **Signalaufbereitung:** Das Signal wird verstärkt und gefiltert.
+4. **ADC:** Das analoge Signal wird in digitale Werte umgewandelt.
+5. **DSP/MCU:** Der Prozessor analysiert die Geräusche und berechnet ein Gegensignal.
+6. **Lautsprecher (Aktor):** Der Lautsprecher gibt das Gegensignal aus, um die Umgebungsgeräusche zu reduzieren.
+
+So arbeiten Sensor, Signalverarbeitung und Aktor zusammen.
 
 ## 2. Wokwi Simulation
 
