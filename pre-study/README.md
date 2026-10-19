@@ -102,6 +102,23 @@ Der 5-V-Pin des Mikrocontrollers kann normalerweise nicht so viel Strom liefern.
 Deshalb sollte der LED-Streifen ein geeignetes externes 5-V-Netzteil verwenden. Der Mikrocontroller steuert nur die LEDs. Beide müssen eine gemeinsame Masse (GND) haben.
 
 ## 8. Project Abstract
+**Projektidee: Hindernisvermeidender Roboter**
+
+Ich möchte einen kleinen Roboter bauen, der Hindernisse automatisch erkennen und vermeiden kann.
+
+Der Roboter soll sich selbstständig in einem Raum bewegen.
+
+Dafür möchte ich einen VL53L0X-Abstandssensor verwenden, der die Entfernung zu Hindernissen misst.
+
+Zusätzlich möchte ich einen MPU6050-Sensor verwenden, um die Bewegung und Drehung des Roboters zu erfassen.
+
+Ein ESP32-Mikrocontroller verarbeitet die Daten der beiden Sensoren.
+
+Wenn der Roboter ein Hindernis erkennt, soll er anhalten und in eine andere Richtung fahren.
+
+Zwei DC-Motoren bewegen die Räder des Roboters.
+
+Das Ziel ist ein einfacher Roboter, der sich möglichst sicher durch einen Raum bewegen kann.
 
 ### Wokwi Screenshots
 
