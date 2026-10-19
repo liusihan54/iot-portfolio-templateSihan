@@ -104,6 +104,51 @@ Deshalb sollte der LED-Streifen ein geeignetes externes 5-V-Netzteil verwenden. 
 ## 8. Project Abstract
 
 ## Additional Notes
+#### 1. VL53L0X – Abstandssensor
+
+Der VL53L0X misst Entfernungen mit Infrarotlicht. Er verwendet die Time-of-Flight-Methode (ToF).
+
+**Technische Daten:**
+
+- **Messgröße:** Abstand
+- **Messprinzip:** Time of Flight (ToF)
+- **Betriebsspannung:** 2,6–3,5 V
+- **Schnittstelle:** I²C
+- **I²C-Adresse:** 0x29 (7 Bit)
+- **Messbereich:** Bis zu etwa 2 m unter günstigen Bedingungen
+- **Auflösung:** Entfernungsausgabe in Millimetern
+- **Genauigkeit:** Im High-Accuracy-Modus bei 1,2 m typischerweise besser als ±3 %
+- **Messzeit:** Je nach Modus etwa 20–200 ms
+
+**Bedingungen und Einschränkungen:**
+
+Die Messung hängt vom Umgebungslicht, von der Entfernung und von der Oberfläche des Objekts ab. Besonders bei starkem Licht oder dunklen Oberflächen können größere Messfehler auftreten. Auch Temperaturänderungen können die Messung beeinflussen.
+
+**Quelle:** [VL53L0X Datenblatt – STMicroelectronics](https://www.st.com/resource/en/datasheet/vl53l0x.pdf)
+
+---
+
+#### 2. MPR121 – Kapazitiver Berührungssensor
+
+Der MPR121 erkennt Berührungen durch Änderungen der elektrischen Kapazität. Er kann bis zu 12 Elektroden überwachen.
+
+**Technische Daten:**
+
+- **Messgröße:** Elektrische Kapazität bzw. Kapazitätsänderung
+- **Messprinzip:** Kapazitive Messung
+- **Betriebsspannung:** 1,71–3,6 V
+- **Schnittstelle:** I²C
+- **I²C-Adresse:** 0x5A bis 0x5D, abhängig von der Beschaltung
+- **Messbereich:** Ungefähr 10 pF bis über 2000 pF
+- **Auflösung:** Bis zu 0,01 pF
+- **Reaktionszeit:** Beispielsweise 64 ms bei einer Abtastrate von 16 ms
+- **Genauigkeit:** Keine allgemeine Genauigkeit in Prozent angegeben. Die Berührungserkennung hängt von der Anwendung und den Einstellungen ab.
+
+**Bedingungen und Einschränkungen:**
+
+Die Messung hängt von der Größe und Form der Elektroden sowie von den Einstellungen ab. Elektrische Störungen und Veränderungen in der Umgebung können die Berührungserkennung beeinflussen.
+
+**Quelle:** [MPR121 Datenblatt – NXP](https://www.nxp.com/docs/en/data-sheet/MPR121.pdf)
 
 ### Wokwi Screenshots
 
