@@ -23,6 +23,21 @@ So arbeiten Sensor, Signalverarbeitung und Aktor zusammen.
 ## 2. Wokwi Simulation
 
 ## 3. Sensor Datasheet
+**Gewählter Sensor: VL53L0X (Abstandssensor)**
+
+Der VL53L0X ist ein Abstandssensor. Er misst die Entfernung zu einem Objekt mit der Time-of-Flight-Methode (ToF). Dabei verwendet er Infrarotlicht.
+
+**Schnittstelle:** I²C
+
+**I²C-Adresse:** 0x29 (7-Bit-Adresse)
+
+**Genauigkeit:** Laut Datenblatt beträgt die typische Genauigkeit im High-Accuracy-Modus bei einer Entfernung von 1,2 m ungefähr ±3 %.
+
+Die Genauigkeit hängt von den Messbedingungen ab, zum Beispiel vom Umgebungslicht, der Entfernung und der Oberfläche des Objekts. Bei starkem Umgebungslicht oder einer schlecht reflektierenden Oberfläche können größere Messfehler auftreten.
+
+**Quelle:** STMicroelectronics – VL53L0X Datasheet
+
+https://www.st.com/resource/en/datasheet/vl53l0x.pdf
 
 ## 4. Accuracy vs. Precision
 **Accuracy und Precision beschreiben zwei verschiedene Eigenschaften einer Messung.**
