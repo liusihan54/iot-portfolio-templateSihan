@@ -29,6 +29,13 @@ Ein anderes Thermometer zeigt bei drei Messungen 23 °C, 25 °C und 27 °C an.
 Der Durchschnitt beträgt 25 °C und ist damit richtig. Die einzelnen Messwerte sind aber unterschiedlich. Deshalb ist die Präzision gering.
 
 ## 5. I²C Addressing
+Bei I²C können mehrere Sensoren dieselben zwei Leitungen benutzen: SDA (Datenleitung) und SCL (Taktleitung).
+
+Das Problem ist, dass der Mikrocontroller die Sensoren unterscheiden muss. Wenn zwei Sensoren dieselbe I²C-Adresse haben, kann es zu einem Adresskonflikt kommen.
+
+Deshalb hat jeder Sensor auf dem Bus normalerweise eine eigene Adresse. Der Mikrocontroller verwendet diese Adresse, um einen bestimmten Sensor anzusprechen und Daten mit ihm auszutauschen.
+
+Wenn zwei Sensoren dieselbe Adresse haben, kann man zum Beispiel die Adresse eines Sensors ändern oder einen I²C-Multiplexer verwenden.
 
 ## 6. Actuator Choice
 **Ich würde für einen kleinen Türverschluss einen Servomotor wählen.**
