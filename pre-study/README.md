@@ -23,6 +23,8 @@ So arbeiten Sensor, Signalverarbeitung und Aktor zusammen.
 ## 2. Wokwi Simulation
 <img width="1280" height="741" alt="image" src="https://github.com/user-attachments/assets/1d6b87ed-b31b-44f9-bade-dda46d1f6209" />
 <img width="1276" height="740" alt="image" src="https://github.com/user-attachments/assets/9a4d01e3-d517-495f-b2a5-8a9ffc7908a7" />
+<img width="1278" height="737" alt="image" src="https://github.com/user-attachments/assets/e8ce2376-3aa7-4a8d-a987-a0096d5e8652" />
+
 
 
 
