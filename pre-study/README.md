@@ -24,7 +24,31 @@ So arbeiten Sensor, Signalverarbeitung und Aktor zusammen.
 <img width="1280" height="741" alt="image" src="https://github.com/user-attachments/assets/1d6b87ed-b31b-44f9-bade-dda46d1f6209" />
 <img width="1276" height="740" alt="image" src="https://github.com/user-attachments/assets/9a4d01e3-d517-495f-b2a5-8a9ffc7908a7" />
 <img width="1278" height="737" alt="image" src="https://github.com/user-attachments/assets/e8ce2376-3aa7-4a8d-a987-a0096d5e8652" />
+<img width="1275" height="710" alt="image" src="https://github.com/user-attachments/assets/ac7937fe-59a8-43b8-8659-ad0d0de615c7" />
+<img width="1278" height="741" alt="image" src="https://github.com/user-attachments/assets/3b869b84-3a7d-443d-8c8f-2579eb730d41" />
+Ich habe in Wokwi eine Schaltung mit einem ESP32, einem Potentiometer und einer LED aufgebaut.
 
+Das Potentiometer ist mit GPIO34 verbunden. Die LED wird über GPIO18 und einen 220-Ohm-Widerstand gesteuert.
+
+**ADC-Auflösungen:**
+
+| Auflösung | Anzahl der Stufen | Wertebereich |
+|---|---|---|
+| 12 Bit | 4096 | 0–4095 |
+| 10 Bit | 1024 | 0–1023 |
+| 8 Bit | 256 | 0–255 |
+
+Bei 12 Bit habe ich zum Beispiel den Wert 2230 gemessen, bei 10 Bit den Wert 549 und bei 8 Bit den Wert 128.
+
+Durch eine geringere Bitzahl gibt es weniger mögliche digitale Werte. Die Auflösung wird dadurch schlechter. Die Messgenauigkeit verbessert sich dadurch nicht automatisch.
+
+**Experiment mit grober Schrittweite:**
+
+Ich habe bei 8 Bit eine Schrittweite von 64 eingestellt.
+
+Bei einem ADC-Wert von 125 war die Stufe 1 und die LED aus. Bei einem ADC-Wert von 133 war die Stufe 2 und die LED an.
+
+Die LED schaltet plötzlich um, weil die Werte in große Stufen eingeteilt werden. An der Grenze zwischen zwei Stufen kann eine kleine Änderung des Messwertes zu einer großen Änderung am Ausgang führen.
 
 
 
