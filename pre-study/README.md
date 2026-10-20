@@ -154,8 +154,6 @@ Zwei DC-Motoren bewegen die Räder des Roboters.
 
 Das Ziel ist ein einfacher Roboter, der sich möglichst sicher durch einen Raum bewegen kann.
 
-### Wokwi Screenshots
-
 ### Datasheet Notes
 
 #### 1. VL53L0X – Abstandssensor
