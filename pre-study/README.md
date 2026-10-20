@@ -21,6 +21,8 @@ Schallwellen → Mikrofon → Signalaufbereitung → ADC → DSP/MCU → Lautspr
 So arbeiten Sensor, Signalverarbeitung und Aktor zusammen.
 
 ## 2. Wokwi Simulation
+<img width="1280" height="741" alt="image" src="https://github.com/user-attachments/assets/1d6b87ed-b31b-44f9-bade-dda46d1f6209" />
+
 
 ## 3. Sensor Datasheet
 **Gewählter Sensor: VL53L0X (Abstandssensor)**
