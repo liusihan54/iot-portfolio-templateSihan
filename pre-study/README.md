@@ -50,7 +50,11 @@ Bei einem ADC-Wert von 125 war die Stufe 1 und die LED aus. Bei einem ADC-Wert v
 
 Die LED schaltet plötzlich um, weil die Werte in große Stufen eingeteilt werden. An der Grenze zwischen zwei Stufen kann eine kleine Änderung des Messwertes zu einer großen Änderung am Ausgang führen.
 
+### Wokwi-Projekt
 
+Mein Wokwi-Projekt kann unter folgendem Link geöffnet und getestet werden:
+
+https://wokwi.com/projects/478424687219605505
 
 ## 3. Sensor Datasheet
 **Gewählter Sensor: VL53L0X (Abstandssensor)**
