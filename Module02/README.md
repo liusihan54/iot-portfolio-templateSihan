@@ -33,11 +33,19 @@ This difference may be caused by variations in the USB supply voltage, resistor 
 
 The experiment demonstrates how a voltage divider reduces a higher voltage using resistors. The measured result was reasonably close to the theoretical value.
 
-## Task ...
+## Task 2
 
-This task was executed by my partner. The implementation was about ... 
-It is [here](https://github.com/partner/iot-portfolio/Module02/Readme.md#task-2).
-
+## Bus profile: <bus>
+- History and background:
+- Wires and connectors:
+- Voltage, signaling, and drive style:
+- Topology and addressing:
+- Speed and maximum length:
+- Relation to the other buses:
+- Typical use and kit example:
+- Curiosities / remarkable features:
+- What can go wrong / how to debug:
+- Sources and verification:
 ## Reflection 2
 [Reflection 2](/Reflections/ref02.md)
 
