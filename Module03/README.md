@@ -21,7 +21,86 @@ Through hands-on sensor characterization, two-point calibration, repeatability t
 6. **Measurement Uncertainty Budgeting & Improvement Prioritization (Task 6):**
    * Construct a quadrature uncertainty budget combining reference multimeter limits ($6.0\text{ mV}$), short-term repeatability ($0.72\text{ mV}$), and validation model discrepancy ($16.2\text{ mV}$) to report a calibrated result with $k = 2$ expanded uncertainty ($V_{\text{pot}} = 1.472 \pm 0.035\text{ V}$).
    * Identify dominant uncertainty contributors ($>85\%$ variance from calibration model discrepancy) to prioritize multi-point calibration over additional software filtering.
+## Task 1: LDR Transfer Function
 
+### Arduino: Record ADC and Voltage
+
+Connect the divider output to GPIO15. Record measurements at each lamp distance.
+
+The voltage is measured using `analogReadMilliVolts()`. The raw ADC code and voltage are consecutive measurements.
+
+```cpp
+const int LDR_PIN = 15;
+
+void setup() {
+  Serial.begin(115200);
+  analogReadResolution(12);
+  analogSetPinAttenuation(LDR_PIN, ADC_11db);
+
+  Serial.println("time_ms,adc,voltage_V");
+}
+
+void loop() {
+  int raw = analogRead(LDR_PIN);
+  float voltage = analogReadMilliVolts(LDR_PIN) / 1000.0f;
+
+  Serial.print(millis());
+  Serial.print(",");
+  Serial.print(raw);
+  Serial.print(",");
+  Serial.println(voltage, 3);
+
+  delay(200);
+}
+```
+
+### Python: Compare Power-Law and Linear Fits
+
+This added analysis script uses the resistance values listed in the report.
+
+The report contains conflicting descriptions of the divider orientation. The listed resistance values correspond to an LDR connected to 3.3 V and a fixed resistor connected to GND:
+
+`R_LDR = R_fixed × (Vs − Vout) / Vout`
+
+The actual wiring must be verified before accepting that interpretation.
+
+Required Python package: `numpy`.
+
+```python
+import numpy as np
+
+distance = np.array([15, 20, 25, 30, 40, 50], dtype=float)
+resistance = np.array([
+    10.625, 12.603, 14.265,
+    14.505, 15.191, 15.984
+])
+
+relative_light = (15.0 / distance) ** 2
+
+exponent, log_coefficient = np.polyfit(
+    np.log(relative_light),
+    np.log(resistance),
+    1
+)
+coefficient = np.exp(log_coefficient)
+
+slope, intercept = np.polyfit(relative_light, resistance, 1)
+
+power_prediction = coefficient * relative_light**exponent
+linear_prediction = slope * relative_light + intercept
+
+power_rmse = np.sqrt(np.mean(
+    (power_prediction - resistance) ** 2
+))
+linear_rmse = np.sqrt(np.mean(
+    (linear_prediction - resistance) ** 2
+))
+
+print(f"Power law: R = {coefficient:.3f} * E^({exponent:.3f})")
+print(f"Power-law RMSE: {power_rmse:.3f} kOhm")
+print(f"Linear: R = {intercept:.3f} + ({slope:.3f}) * E")
+print(f"Linear RMSE: {linear_rmse:.3f} kOhm")
+```
 
 ## Self-Reflection – Module 03
 
