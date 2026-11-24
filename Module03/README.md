@@ -101,6 +101,7 @@ print(f"Power-law RMSE: {power_rmse:.3f} kOhm")
 print(f"Linear: R = {intercept:.3f} + ({slope:.3f}) * E")
 print(f"Linear RMSE: {linear_rmse:.3f} kOhm")
 ```
-
+To see the results, please visit my teammate’s page. 
+https://github.com/Conger-Y/iot-portfolio-template/blob/main/Module03/README.md
 ## Self-Reflection – Module 03
 https://github.com/liusihan54/iot-portfolio-templateSihan/blob/main/Reflections/ref03.md
