@@ -158,8 +158,28 @@ void loop() {
 To see the results, please visit my teammate’s page.
 https://github.com/Conger-Y/iot-portfolio-template/blob/main/Module02/pins-and-dividers.md
 
-### 9. What Can Go Wrong / Debugging
+## Task 9: Web Logic Analyzer
 
+We used the open-source hepter/web-logic-analyzer firmware to capture digital signals and display waveforms in a web browser.
+
+### Source Code
+
+[Complete Arduino sketch](https://github.com/hepter/web-logic-analyzer/blob/main/web-logic-analyzer.ino)
+
+The firmware includes signal acquisition, a web server, and the browser interface for displaying waveforms.
+
+### Procedure
+
+1. Configure the Wi-Fi credentials and input pins.
+2. Upload the firmware to the ESP32.
+3. Open the Serial Monitor at 115200 baud.
+4. Enter the displayed local IP address in a browser on the same network.
+5. Start a capture using the web interface and inspect the resulting waveforms.
+
+Credit: hepter/web-logic-analyzer, licensed under GNU GPL v3.
+
+To see the results, please visit my teammate’s page.
+https://github.com/Conger-Y/iot-portfolio-template/blob/main/Module02/pins-and-dividers.md
 
 ## Reflection 3
 [Reflection 3](/Reflections/ref03.md)
