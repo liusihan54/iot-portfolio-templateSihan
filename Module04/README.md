@@ -374,4 +374,4 @@ print(f"Half-depth fraction of full volume: {volume_fraction:.1f}%")
 The alarm activates when the measured distance is at or below 15 cm and clears when the distance reaches or exceeds 16 cm. Between these thresholds, the previous alarm state is retained to reduce repeated switching.
 
 ## Self-Reflection
-
+https://github.com/liusihan54/iot-portfolio-templateSihan/blob/main/Reflections/ref04.md
