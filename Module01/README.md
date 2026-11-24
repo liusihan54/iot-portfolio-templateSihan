@@ -32,7 +32,6 @@ void loop() {
   delay(1000);
 }
 ```
-
 To see the results, please visit my teammate’s page.
 https://github.com/Conger-Y/iot-portfolio-template/edit/main/Module01/slides/01-introduction.md
 
@@ -68,7 +67,6 @@ void loop() {
   delay(50);
 }
 ```
-
 To see the results, please visit my teammate’s page.
 https://github.com/Conger-Y/iot-portfolio-template/edit/main/Module01/slides/01-introduction.md
 
@@ -98,9 +96,9 @@ void loop() {
   delay(200);
 }
 ```
-
 To see the results, please visit my teammate’s page.
 https://github.com/Conger-Y/iot-portfolio-template/edit/main/Module01/slides/01-introduction.md
 
 
-
+Please visit my reflection page.
+https://github.com/liusihan54/iot-portfolio-templateSihan/blob/main/Reflections/ref01.md
