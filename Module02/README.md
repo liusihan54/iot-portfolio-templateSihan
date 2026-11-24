@@ -42,8 +42,8 @@ void setup() {
 
 void loop() {}
 ```
-
-
+To see the results, please visit my teammate’s page.
+https://github.com/Conger-Y/iot-portfolio-template/blob/main/Module02/pins-and-dividers.md
 ### 6. Relation to Other Buses
 6A：
 ```cpp
@@ -116,6 +116,8 @@ void loop() {
   delay(1000);
 }
 ```
+To see the results, please visit my teammate’s page.
+https://github.com/Conger-Y/iot-portfolio-template/blob/main/Module02/pins-and-dividers.md
 ### 7. Typical Uses and Kit Example
 ```cpp
 #include <Wire.h>
@@ -153,32 +155,11 @@ void loop() {
   delay(1000);
 }
 ```
-### 8. Curiosities / Remarkable Features
-1. **Open-drain signaling:** I²C devices normally pull a line LOW rather than actively driving it HIGH, allowing devices to share the same bus.
-2. **Dynamic addressing:** I³C can assign addresses to compatible devices automatically, reducing address-management problems.
-3. **In-Band Interrupts:** I³C devices can request attention over the shared bus without requiring a separate interrupt wire.
+To see the results, please visit my teammate’s page.
+https://github.com/Conger-Y/iot-portfolio-template/blob/main/Module02/pins-and-dividers.md
 
 ### 9. What Can Go Wrong / Debugging
-A common I²C problem is a missing device during address scanning.
 
-Possible causes include incorrect wiring, missing or unsuitable pull-up resistors, voltage incompatibility or address conflicts.
-
-We can debug this by checking power and GND, scanning I²C addresses, and measuring SDA/SCL signals with a logic analyzer.
-
-A device holding SDA LOW can prevent the whole bus from working.
-
-### 10. Sources and Verification
-- NXP Semiconductors: *UM10204 — I²C-bus Specification and User Manual*, Rev. 7.0, 2021.
-- MIPI Alliance: *MIPI I3C and I3C Basic — Specification Overview and FAQ*.
-- Device datasheets and experimental measurements should be used to verify voltage levels, operating speed and address configuration.
-
-**Verification status:** Protocol features checked against official documentation. Our particular ESP32 and sensor connections, bus voltage, operating speed and signal quality have not yet been measured for this task.
-
-## Task ...
-
-...
-
-If the module is longer than 1 week, you might have several reflections within it. If not, delete this and the following.
 
 ## Reflection 3
 [Reflection 3](/Reflections/ref03.md)
