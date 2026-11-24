@@ -63,7 +63,8 @@ void loop() {
   delay(1000);
 }
 ```
-
+To see the results, please visit my teammate’s page
+https://github.com/Conger-Y/iot-portfolio-template/edit/main/Module05/module_05_lab_report%20(1).md
 ## Task 2: RGB Mixing and Input Validation
 
 The tested RGB module has a common cathode and onboard 150 Ω resistors marked `151`.
@@ -195,6 +196,8 @@ Each channel was activated separately at PWM 255. Voltage was measured across it
 | Blue | 150 Ω | 0.50 V | 3.33 mA |
 
 Current was calculated using `I = U / R`. No additional measurement program is required.
+To see the results, please visit my teammate’s page
+https://github.com/Conger-Y/iot-portfolio-template/edit/main/Module05/module_05_lab_report%20(1).md
 
 ## Task 3: Addressable WS2812B Strip
 
@@ -315,52 +318,7 @@ void loop() {
   }
 }
 ```
-
-### Set All Eight Pixels to Red
-
-Send these commands individually, each followed by a newline:
-
-```text
-0 255 0 0
-1 255 0 0
-2 255 0 0
-3 255 0 0
-4 255 0 0
-5 255 0 0
-6 255 0 0
-7 255 0 0
-```
-
-### Set All Eight Pixels to White
-
-```text
-0 255 255 255
-1 255 255 255
-2 255 255 255
-3 255 255 255
-4 255 255 255
-5 255 255 255
-6 255 255 255
-7 255 255 255
-```
-
-### Turn Everything Off
-
-```text
-clear
-```
-
-### Recorded Strip Current
-
-Measurements were taken in series with the strip's positive supply line using the multimeter's DC 10 A range.
-
-| Condition | Luminance | Measured current | Estimated power at 5 V |
-|---|---:|---:|---:|
-| Eight pixels red | 80/255 | Approximately 0.03 A | Approximately 0.15 W |
-| Eight pixels white | 80/255 | Approximately 0.09 A | Approximately 0.45 W |
-
-These measurements cover the strip branch only, excluding ESP32 current. The 10 A range has limited resolution, so these are approximate readings.
-
-
+To see the results, please visit my teammate’s page
+https://github.com/Conger-Y/iot-portfolio-template/edit/main/Module05/module_05_lab_report%20(1).md
 
 ## Self-Reflection
