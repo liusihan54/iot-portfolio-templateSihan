@@ -15,84 +15,144 @@ Through hands-on I²C bus wiring, low-level register parsing, multi-device bus s
    * Deploy and operate a web-based logic analyzer (`hepter/web-logic-analyzer`) to inspect digital bus signals alongside basic pin, PWM, UART, and voltage-divider behavior.
    * Systematically diagnose and resolve breadboard power-distribution faults by identifying and clearing a `3V3`-to-`D19` short circuit that prevented the logic analyzer board from powering up.
 
-## Task 1
 
-### Voltage Divider Experiment
-
-We built a voltage divider using three 10 kΩ resistors connected in series.
-
-- **Input voltage (Vin):** Nominally 5 V (ESP32 VIN)
-- **R1:** 10 kΩ
-- **R2 + R3:** 20 kΩ
-- **Calculated output voltage:** 3.333 V
-- **Measured output voltage:** 3.487 V
-- **Difference:** 0.154 V
-- **Percentage difference:** Approximately 4.62%
-
-**Calculation:**
-
-Vout = Vin × R2 / (R1 + R2)
-
-Vout = 5 × 20 / (10 + 20) = 3.333 V
-
-
-**Result:**
-
-The measured output voltage was 3.487 V, slightly higher than the calculated value of 3.333 V.
-
-This difference may be caused by variations in the USB supply voltage, resistor tolerances, or measurement accuracy.
-
-**Conclusion:**
-
-The experiment demonstrates how a voltage divider reduces a higher voltage using resistors. The measured result was reasonably close to the theoretical value.
-
-## Task 2
-
-# Bus Profile: I²C / I³C
-
-**Pod 5 — Bus Systems Survey**
-
-### 1. History and Background
-I²C (Inter-Integrated Circuit) was introduced by Philips in 1982 to simplify communication between chips in electronic devices. I³C (Improved Inter-Integrated Circuit) was introduced by the MIPI Alliance in 2017 as a faster, more efficient successor to I²C.
-
-### 2. Wires and Connectors
-Both buses use two main signal lines:
-- **SDA:** Serial Data
-- **SCL:** Serial Clock
-
-Power and GND connections are also required. Common I²C sensor modules have VCC, GND, SDA and SCL pins.
-
-### 3. Voltage, Signaling and Drive Style
-I²C commonly uses 3.3 V or 5 V logic, depending on the devices. Standard I²C uses open-drain outputs with pull-up resistors.
-
-I³C uses a combination of open-drain and push-pull signaling to improve communication efficiency. Both are serial communication buses.
-
-### 4. Topology and Addressing
-Multiple devices share the SDA and SCL lines.
-
-I²C commonly uses static 7-bit addresses and supports multiple controllers with arbitration.
-
-I³C additionally supports dynamic address assignment, allowing the controller to manage device addresses automatically.
 
 ### 5. Speed and Maximum Length
-- **I²C:** Common modes are 100 kbit/s and 400 kbit/s. Higher-speed modes also exist.
-- **I³C:** Up to 12.5 Mbit/s raw bitrate in standard SDR mode, with optional faster modes.
-- **Distance:** Both are mainly designed for short connections between chips or on circuit boards. There is no single universal maximum cable length; capacitance, speed and signal quality are important.
+
+```cpp
+#include <Wire.h>
+
+void setup() {
+  Serial.begin(115200);
+  Wire.begin(21, 22);
+  delay(1000);
+
+  Serial.println("Scanning I2C bus...");
+
+  for (uint8_t address = 1; address < 127; address++) {
+    Wire.beginTransmission(address);
+
+    if (Wire.endTransmission() == 0) {
+      Serial.printf("Device at 0x%02X\n", address);
+    }
+  }
+
+  Serial.println("Scan done.");
+}
+
+void loop() {}
+```
+
 
 ### 6. Relation to Other Buses
-Compared with SPI, I²C uses fewer signal wires and supports device addressing, but common I²C modes are slower.
+6A：
+```cpp
+#include <Wire.h>
+#include <LM75.h>
 
-Compared with RS-485 and CAN, I²C and I³C are primarily designed for short-distance communication inside devices rather than long industrial or automotive cables.
+LM75 Temp0(0x4F);
 
-I³C combines the low pin count of I²C with improved speed, efficiency and device management.
+void setup() {
+  Serial.begin(115200);
+  Wire.begin(21, 22);
+  Temp0.begin();
 
+  delay(1000);
+  Serial.println("Task 6: Library Temperature Read");
+}
+
+void loop() {
+  float temperature = Temp0.getTemperature();
+
+  Serial.print("Library temperature: ");
+  Serial.print(temperature, 3);
+  Serial.println(" C");
+
+  delay(1000);
+}
+```
+6B:
+```cpp
+#include <Wire.h>
+
+const uint8_t SENSOR_ADDR = 0x4F;
+const uint8_t TEMP_REG = 0x00;
+
+void setup() {
+  Serial.begin(115200);
+  Wire.begin(21, 22);
+  delay(1000);
+
+  Serial.println("Task 6: Read Temperature Register");
+}
+
+void loop() {
+  Wire.beginTransmission(SENSOR_ADDR);
+  Wire.write(TEMP_REG);
+
+  if (Wire.endTransmission(false) != 0) {
+    Serial.println("I2C communication error");
+    delay(1000);
+    return;
+  }
+
+  if (Wire.requestFrom(SENSOR_ADDR, (uint8_t)2) != 2) {
+    Serial.println("Read error");
+    delay(1000);
+    return;
+  }
+
+  uint8_t msb = Wire.read();
+  uint8_t lsb = Wire.read();
+
+  int16_t raw = (int16_t)(((uint16_t)msb << 8) | lsb);
+  float temperature = raw / 256.0f;
+
+  Serial.printf("Raw bytes: 0x%02X 0x%02X\n", msb, lsb);
+  Serial.print("Temperature: ");
+  Serial.print(temperature, 3);
+  Serial.println(" C");
+
+  delay(1000);
+}
+```
 ### 7. Typical Uses and Kit Example
-I²C is commonly used for OLED displays, temperature sensors, motion sensors and real-time clocks.
+```cpp
+#include <Wire.h>
+#include <LM75.h>
+#include <LiquidCrystal_I2C.h>
 
-For example, an ESP32 can connect to several I²C sensors using the same SDA and SCL lines.
+LM75 Temp0(0x4F);
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-I³C is used in advanced sensor and embedded systems with compatible controllers and devices.
+void setup() {
+  Serial.begin(115200);
+  Wire.begin(21, 22);
 
+  Temp0.begin();
+
+  lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print("Temperature:");
+}
+
+void loop() {
+  float temperature = Temp0.getTemperature();
+
+  Serial.print("Temperature: ");
+  Serial.print(temperature, 3);
+  Serial.println(" C");
+
+  lcd.setCursor(0, 1);
+  lcd.print("                ");
+  lcd.setCursor(0, 1);
+  lcd.print(temperature, 2);
+  lcd.print(" C");
+
+  delay(1000);
+}
+```
 ### 8. Curiosities / Remarkable Features
 1. **Open-drain signaling:** I²C devices normally pull a line LOW rather than actively driving it HIGH, allowing devices to share the same bus.
 2. **Dynamic addressing:** I³C can assign addresses to compatible devices automatically, reducing address-management problems.
