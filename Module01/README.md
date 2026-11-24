@@ -15,35 +15,69 @@ Through hands-on prototyping and hardware characterization across Tasks 1–4 on
    * Derive and calculate physical sensor resistance ($R_{LDR} = R_{fixed} \cdot \frac{V_{ref} - V_{out}}{V_{out}}$) across dark ($\approx 93.13\text{ k}\Omega$), ambient room light ($\approx 23.40\text{ k}\Omega$), and bright flashlight ($\approx 4.67\text{ k}\Omega$) conditions.
    * Evaluate practical transducer limitations, including CdS response latency ($200\text{ ms} - 500\text{ ms}$), non-linear logarithmic sensitivity ($R \propto \text{Lux}^{-\gamma}$), thermal drift, and repeatability variance.
 
-## Task Inspirations
+##Task 1
 
-- Inspiration 1
-- Inspiration 2
+const int ledPin = 18;
 
-## Task Personal Profile
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
 
-## Task What is IoT
+void loop() {
+  digitalWrite(ledPin, HIGH);
+  delay(1000);
+  digitalWrite(ledPin, LOW);
+  delay(1000);
+}
 
-Domains and included areas:
+To see the results, please visit my teammate’s page.
+https://github.com/Conger-Y/iot-portfolio-template/edit/main/Module01/slides/01-introduction.md
 
--
--
+##Task 2
+const int ledPin = 18;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(ledPin, HIGH);
+  delay(1000);
+
+  digitalWrite(ledPin, LOW);
+  delay(1000);
+}
+
+To see the results, please visit my teammate’s page.
+https://github.com/Conger-Y/iot-portfolio-template/edit/main/Module01/slides/01-introduction.md
+
+##Task 3
+
+https://github.com/Conger-Y/iot-portfolio-template/edit/main/Module01/slides/01-introduction.md
+
+##Task 4
+
+const int ldrPin = 33;
+
+void setup() {
+  Serial.begin(115200);
+  analogReadResolution(12); // Configure 12-bit ADC (0 - 4095)
+}
+
+void loop() {
+  int raw = analogRead(ldrPin);
+  float voltage = raw * 3.3 / 4095.0; // Scaled voltage in Volts
+
+  Serial.print("ADC:");
+  Serial.print(raw);
+  Serial.print("\tVoltage:");
+  Serial.println(voltage, 3);
+
+  delay(200);
+}
+
+To see the results, please visit my teammate’s page.
+https://github.com/Conger-Y/iot-portfolio-template/edit/main/Module01/slides/01-introduction.md
 
 
-Commonly used (data) protocols:
 
--
--
-
-Typical devices (appliance or micro controller):
-
--
--
-
-Challenges:
-
--
--
-
-## Reflection 1
-[Reflection 1](/Reflections/ref01.md)
