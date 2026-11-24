@@ -21,3 +21,7 @@ Through hands-on sensor characterization, two-point calibration, repeatability t
 6. **Measurement Uncertainty Budgeting & Improvement Prioritization (Task 6):**
    * Construct a quadrature uncertainty budget combining reference multimeter limits ($6.0\text{ mV}$), short-term repeatability ($0.72\text{ mV}$), and validation model discrepancy ($16.2\text{ mV}$) to report a calibrated result with $k = 2$ expanded uncertainty ($V_{\text{pot}} = 1.472 \pm 0.035\text{ V}$).
    * Identify dominant uncertainty contributors ($>85\%$ variance from calibration model discrepancy) to prioritize multi-point calibration over additional software filtering.
+
+
+## Self-Reflection – Module 03
+
