@@ -17,6 +17,7 @@ Through hands-on prototyping and hardware characterization across Tasks 1–4 on
 
 ##Task 1
 
+```cpp
 const int ledPin = 18;
 
 void setup() {
@@ -30,24 +31,43 @@ void loop() {
   digitalWrite(ledPin, LOW);
   delay(1000);
 }
+```
 
 To see the results, please visit my teammate’s page.
 https://github.com/Conger-Y/iot-portfolio-template/edit/main/Module01/slides/01-introduction.md
 
 ##Task 2
+
+```cpp
 const int ledPin = 18;
+const int buttonPin = 27;
 
 void setup() {
   pinMode(ledPin, OUTPUT);
+  pinMode(buttonPin, INPUT_PULLUP);
+
+  Serial.begin(115200);
 }
 
 void loop() {
-  digitalWrite(ledPin, HIGH);
-  delay(1000);
+  int buttonState = digitalRead(buttonPin);
 
-  digitalWrite(ledPin, LOW);
-  delay(1000);
+  if (buttonState == LOW) {
+    digitalWrite(ledPin, HIGH);
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+
+  Serial.print("t=");
+  Serial.print(millis());
+  Serial.print(" button=");
+  Serial.print(buttonState);
+  Serial.print(" led=");
+  Serial.println(buttonState == LOW ? 1 : 0);
+
+  delay(50);
 }
+```
 
 To see the results, please visit my teammate’s page.
 https://github.com/Conger-Y/iot-portfolio-template/edit/main/Module01/slides/01-introduction.md
@@ -58,16 +78,17 @@ https://github.com/Conger-Y/iot-portfolio-template/edit/main/Module01/slides/01-
 
 ##Task 4
 
+```cpp
 const int ldrPin = 33;
 
 void setup() {
   Serial.begin(115200);
-  analogReadResolution(12); // Configure 12-bit ADC (0 - 4095)
+  analogReadResolution(12);
 }
 
 void loop() {
   int raw = analogRead(ldrPin);
-  float voltage = raw * 3.3 / 4095.0; // Scaled voltage in Volts
+  float voltage = raw * 3.3 / 4095.0;
 
   Serial.print("ADC:");
   Serial.print(raw);
@@ -76,6 +97,7 @@ void loop() {
 
   delay(200);
 }
+```
 
 To see the results, please visit my teammate’s page.
 https://github.com/Conger-Y/iot-portfolio-template/edit/main/Module01/slides/01-introduction.md
