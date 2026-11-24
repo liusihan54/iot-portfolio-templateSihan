@@ -200,6 +200,7 @@ void loop() {
 }
 ```
 ## Task 3b: LDR Calibration and Independent Validation
+```cpp
 import math
 
 e1, r1 = 1.0, 10.625
