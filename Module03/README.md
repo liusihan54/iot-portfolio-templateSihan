@@ -103,5 +103,306 @@ print(f"Linear RMSE: {linear_rmse:.3f} kOhm")
 ```
 To see the results, please visit my teammate’s page. 
 https://github.com/Conger-Y/iot-portfolio-template/blob/main/Module03/README.md
+
+## Task 2: DS18B20 Resolution and Response Time
+```cpp
+#include <OneWire.h>
+#include <DallasTemperature.h>
+
+const int DATA_PIN = 4;  // Example: replace with the actual GPIO.
+const int RESOLUTION_BITS = 12;
+const unsigned long PAUSE_MS = 250;
+
+OneWire oneWire(DATA_PIN);
+DallasTemperature sensors(&oneWire);
+
+void setup() {
+  Serial.begin(115200);
+  sensors.begin();
+
+  if (sensors.getDeviceCount() == 0) {
+    Serial.println("No DS18B20 detected.");
+    while (true) delay(1000);
+  }
+
+  sensors.setResolution(RESOLUTION_BITS);
+
+  Serial.println("time_ms,bits,temperature_C,conversion_ms");
+}
+
+void loop() {
+  unsigned long start = millis();
+  sensors.requestTemperatures();
+  unsigned long conversionTime = millis() - start;
+
+  float temperature = sensors.getTempCByIndex(0);
+
+  if (temperature == DEVICE_DISCONNECTED_C) {
+    Serial.println("Sensor disconnected.");
+    delay(1000);
+    return;
+  }
+
+  Serial.print(millis());
+  Serial.print(",");
+  Serial.print(RESOLUTION_BITS);
+  Serial.print(",");
+  Serial.print(temperature, 4);
+  Serial.print(",");
+  Serial.println(conversionTime);
+
+  delay(PAUSE_MS);
+}
+```
+To see the results, please visit my teammate’s page. 
+https://github.com/Conger-Y/iot-portfolio-template/blob/main/Module03/README.md
+
+## Task 3a: Two-Point Potentiometer–ADC Calibration
+```cpp
+const int POT_PIN = 34;
+const int SAMPLE_COUNT = 100;
+
+const float ADC_LOW = 525.31f;
+const float ADC_HIGH = 3180.32f;
+const float V_LOW = 0.53f;
+const float V_HIGH = 2.72f;
+
+void setup() {
+  Serial.begin(115200);
+  analogReadResolution(12);
+  analogSetPinAttenuation(POT_PIN, ADC_11db);
+
+  Serial.println("mean_adc,simple_V,calibrated_V");
+}
+
+void loop() {
+  uint32_t sum = 0;
+
+  for (int i = 0; i < SAMPLE_COUNT; i++) {
+    sum += analogRead(POT_PIN);
+    delay(2);
+  }
+
+  float meanADC = sum / float(SAMPLE_COUNT);
+  float simpleVoltage = meanADC * 3.3f / 4095.0f;
+
+  float calibratedVoltage =
+      V_LOW + (meanADC - ADC_LOW) *
+      (V_HIGH - V_LOW) / (ADC_HIGH - ADC_LOW);
+
+  Serial.print(meanADC, 2);
+  Serial.print(",");
+  Serial.print(simpleVoltage, 3);
+  Serial.print(",");
+  Serial.println(calibratedVoltage, 3);
+
+  delay(500);
+}
+```
+## Task 3b: LDR Calibration and Independent Validation
+import math
+
+e1, r1 = 1.0, 10.625
+e2, r2 = 0.09, 15.984
+
+e_validation = 0.36
+r_validation = 14.265
+
+exponent = math.log(r2 / r1) / math.log(e2 / e1)
+coefficient = r1 / e1**exponent
+
+slope = (r2 - r1) / (e2 - e1)
+intercept = r1 - slope * e1
+
+predictions = {
+    "Power law": coefficient * e_validation**exponent,
+    "Linear": intercept + slope * e_validation,
+}
+
+for name, prediction in predictions.items():
+    error = prediction - r_validation
+    relative_error = error / r_validation * 100
+
+    print(
+        f"{name}: {prediction:.3f} kOhm, "
+        f"error={error:+.3f} kOhm, "
+        f"relative error={relative_error:+.2f}%"
+    )
+```
+To see the results, please visit my teammate’s page. 
+https://github.com/Conger-Y/iot-portfolio-template/blob/main/Module03/README.md
+## Task 4: Hysteresis and Repeatability
+
+### LDR Sweep
+
+```python
+from statistics import mean
+
+fixed = [1.527, 1.527, 1.526]
+
+returned = [
+    1.559, 1.509, 1.439, 1.563, 1.506,
+    1.456, 1.528, 1.563, 1.538, 1.504
+]
+
+for label, values in [
+    ("Shaft held fixed", fixed),
+    ("Returned to mark", returned),
+]:
+    print(label)
+    print(f"Mean: {mean(values):.3f} V")
+    print(f"Minimum: {min(values):.3f} V")
+    print(f"Maximum: {max(values):.3f} V")
+    print(f"Range: {max(values) - min(values):.3f} V")
+To see the results, please visit my teammate’s page. 
+https://github.com/Conger-Y/iot-portfolio-template/blob/main/Module03/README.md
+```
+## Task 5a: Noise and Filter Comparison
+```cpp
+const int INPUT_PIN = 15;
+const int WINDOW = 5;
+const float ALPHA = 0.2f;
+const bool INJECT_SPIKE = false;
+
+int buffer[WINDOW];
+int position = 0;
+int count = 0;
+int sampleNumber = 0;
+
+float ema = 0;
+unsigned long lastSample = 0;
+
+void setup() {
+  Serial.begin(115200);
+  analogReadResolution(12);
+  analogSetPinAttenuation(INPUT_PIN, ADC_11db);
+
+  Serial.println("sample,time_ms,raw,input,mean5,median5,ema");
+}
+
+void loop() {
+  if (sampleNumber >= 500) return;
+  if (millis() - lastSample < 20) return;
+
+  lastSample = millis();
+  sampleNumber++;
+
+  int raw = analogRead(INPUT_PIN);
+  int input = raw;
+
+  if (INJECT_SPIKE && sampleNumber == 470) {
+    input += 500;
+  }
+
+  buffer[position] = input;
+  position = (position + 1) % WINDOW;
+
+  if (count < WINDOW) count++;
+
+  int sorted[WINDOW];
+  long sum = 0;
+
+  for (int i = 0; i < count; i++) {
+    sorted[i] = buffer[i];
+    sum += buffer[i];
+  }
+
+  for (int i = 1; i < count; i++) {
+    int value = sorted[i];
+    int j = i - 1;
+
+    while (j >= 0 && sorted[j] > value) {
+      sorted[j + 1] = sorted[j];
+      j--;
+    }
+
+    sorted[j + 1] = value;
+  }
+
+  float movingAverage = sum / float(count);
+
+  float median = (count % 2)
+      ? sorted[count / 2]
+      : (sorted[count / 2 - 1] + sorted[count / 2]) / 2.0f;
+
+  if (sampleNumber == 1) {
+    ema = input;
+  } else {
+    ema = ALPHA * input + (1.0f - ALPHA) * ema;
+  }
+
+  Serial.printf(
+      "%d,%lu,%d,%d,%.2f,%.2f,%.2f\n",
+      sampleNumber, lastSample, raw, input,
+      movingAverage, median, ema
+  );
+}
+```
+## Task 5b: Threshold Hysteresis Demonstration
+```python
+temperatures = [3.0, 1.9, 2.1, 1.8, 2.2, 1.9, 2.6]
+
+single_alarm = False
+hysteresis_alarm = False
+
+single_changes = 0
+hysteresis_changes = 0
+
+for temperature in temperatures:
+    new_single = temperature <= 2.0
+    new_hysteresis = hysteresis_alarm
+
+    if temperature <= 2.0:
+        new_hysteresis = True
+    elif temperature >= 2.5:
+        new_hysteresis = False
+
+    single_changes += new_single != single_alarm
+    hysteresis_changes += new_hysteresis != hysteresis_alarm
+
+    single_alarm = new_single
+    hysteresis_alarm = new_hysteresis
+
+    print(
+        f"{temperature:.1f} C: "
+        f"single={single_alarm}, "
+        f"hysteresis={hysteresis_alarm}"
+    )
+
+print("Single-threshold changes:", single_changes)
+print("Hysteresis changes:", hysteresis_changes)
+```
+To see the results, please visit my teammate’s page. 
+https://github.com/Conger-Y/iot-portfolio-template/blob/main/Module03/README.md
+## Task 6: Uncertainty Budget
+```python
+import math
+
+voltage = 1.472
+
+u_reference = 6.0
+u_repeatability = 0.72
+u_model = 16.2
+
+combined_mV = math.sqrt(
+    u_reference**2 +
+    u_repeatability**2 +
+    u_model**2
+)
+
+coverage_factor = 2
+expanded_V = coverage_factor * combined_mV / 1000
+
+model_share = u_model**2 / combined_mV**2 * 100
+
+print(f"Combined standard uncertainty: {combined_mV:.2f} mV")
+print(
+    f"Result: {voltage:.3f} +/- {expanded_V:.3f} V "
+    f"(k={coverage_factor})"
+)
+print(f"Model contribution to variance: {model_share:.1f}%")
+```
+To see the results, please visit my teammate’s page. 
+https://github.com/Conger-Y/iot-portfolio-template/blob/main/Module03/README.md
 ## Self-Reflection – Module 03
 https://github.com/liusihan54/iot-portfolio-templateSihan/blob/main/Reflections/ref03.md
